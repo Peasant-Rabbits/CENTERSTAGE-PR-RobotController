@@ -46,7 +46,9 @@ public class AutonTest2 extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        drive.setPoseEstimate(new Pose2d(-36, -62, Math.toRadians(270)));
         waitForStart();
+
 
         while (opModeIsActive()) {
 

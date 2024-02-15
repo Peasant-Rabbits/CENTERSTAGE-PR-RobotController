@@ -24,6 +24,18 @@ public class Measurement_v2 extends LinearOpMode {
             telemetry.addData("Slider (Left)", robot.motorSliderLeft.getCurrentPosition());
             telemetry.addData("Slider (Right)", robot.motorSliderRight.getCurrentPosition());
             telemetry.update();
+
+            if (gamepad1.triangle) {
+                robot.motorSliderLeft.setPower(1);
+            } else {
+                robot.motorSliderLeft.setPower(0);
+            }
+
+            if (gamepad1.cross) {
+                robot.motorSliderRight.setPower(1);
+            } else {
+                robot.motorSliderRight.setPower(1);
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.acmerobotics.dashboard.FtcDashboard;
+import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -11,7 +11,6 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.openftc.easyopencv.OpenCvWebcam;
 
 /**
  * This class represents the robot object.
@@ -26,6 +25,8 @@ public class Hardware_v2 {
     CRServo servoDrone;
     IMU imu;
     Telemetry telemetry;
+//    AnalogInput a0;
+//    AnalogInput a1;
 
     boolean clawUpperOpen;
     boolean clawLowerOpen;
@@ -36,12 +37,12 @@ public class Hardware_v2 {
     final static double OFFSET_SERVO_CLAW_PITCH_LEFT = 0;
     final static double OFFSET_SERVO_CLAW_PITCH_RIGHT = 0;
 
-    final static double ARM_INTAKE = 0.953;
-    final static double ARM_LIFTED = 0.97;
-    final static double ARM_SCORING = 0.4;
+    final static double ARM_INTAKE = 0.85;
+    final static double ARM_LIFTED = 1;
+    final static double ARM_SCORING = 0.3;
     final static double CLAW_PITCH_INTAKE = 0.935;
     final static double CLAW_PITCH_LIFTED = 0.7;
-    final static double CLAW_PITCH_SCORING = 0.63;
+    final static double CLAW_PITCH_SCORING = 0.55;
 
     /**
      * Init method. Call upon the initialisation of an OpMode. Maps hardware to its variables. Call <code>reset()</code> afterwards.
@@ -62,6 +63,8 @@ public class Hardware_v2 {
         servoArmRight = hardwareMap.get(Servo.class, "servoArmRight");
         servoDrone = hardwareMap.get(CRServo.class, "servoDrone");
         imu = hardwareMap.get(IMU.class, "imu");
+//        a0 = hardwareMap.get(AnalogInput.class, "a0");
+//        a1 = hardwareMap.get(AnalogInput.class, "a1");
 
         imu.initialize(new IMU.Parameters(new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.LEFT, RevHubOrientationOnRobot.UsbFacingDirection.UP)));
         this.telemetry = telemetry;
@@ -100,10 +103,10 @@ public class Hardware_v2 {
     public void openLowerClaw() {servoClawLower.setPosition(1); clawLowerOpen = true;}
 
     /** Closes upper claw and sets <code>clawUpperOpen</code> to <code>false</code>.*/
-    public void closeUpperClaw() {servoClawUpper.setPosition(0.22); clawUpperOpen = false;}
+    public void closeUpperClaw() {servoClawUpper.setPosition(0.3); clawUpperOpen = false;}
 
     /** Closes lower claw and sets <code>clawLowerOpen</code> to <code>false</code>.*/
-    public void closeLowerClaw() {servoClawLower.setPosition(0.74); clawLowerOpen = false;}
+    public void closeLowerClaw() {servoClawLower.setPosition(0.72); clawLowerOpen = false;}
 
     /**
      * Sets slider positions.
@@ -123,6 +126,9 @@ public class Hardware_v2 {
             case 2:  // Rigging hold position.
                 motorSliderLeft.setTargetPosition(310);
                 motorSliderRight.setTargetPosition(310);
+            case 3:
+                motorSliderLeft.setTargetPosition(745);
+                motorSliderRight.setTargetPosition(745);
         }
 
         motorSliderLeft.setPower(power);
